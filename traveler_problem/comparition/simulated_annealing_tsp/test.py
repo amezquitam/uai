@@ -32,6 +32,7 @@ def apply(coords, out_file):
         print('Ejecución No. ', i)
         start_time = timeit.default_timer() 
         sa = SimAnneal(coords, T = 20, stopping_iter=6000, alpha=0.9992) #0.9992
+        sa = SimAnneal(coords, T = 40, stopping_iter=10000, alpha=0.9992) #0.9992
         print(sa.T)
         best_solution, nIter = sa.anneal()
         stop_time = timeit.default_timer()

@@ -10,7 +10,7 @@ if __name__ == '__main__':
             x, y = line.split(',')
             coords.append([float(x), float(y)])
     
-    args.append(list(coords))
+    args.append(("tiny.csv", list(coords)))
 
     coords = []
     with open("coord.txt") as f:
@@ -18,7 +18,7 @@ if __name__ == '__main__':
             x, y = line.split(' ')
             coords.append([float(x), float(y)])
     
-    args.append(list(coords))
+    args.append(("coord.txt", list(coords)))
     
     coords = []
     with open("TSP51.txt") as f:
@@ -26,9 +26,9 @@ if __name__ == '__main__':
             i, x, y = line.split(' ')
             coords.append([float(x), float(y)])
     
-    args.append(list(coords))
+    args.append(("TSP51.txt", list(coords)))
 
-    for coords in args:
+    for file, coords in args:
         print(tsp(coords))
-        apply_ant_colony(coords, 'result_ant_colony.xlsx')
-        apply_simulated_annealing(coords, 'result_sumulated_annealing.xlsx')
+        apply_ant_colony(coords, f'result_ant_colony-{file}.xlsx')
+        apply_simulated_annealing(coords, f'result_sumulated_annealing-{file}.xlsx')
