@@ -125,17 +125,23 @@ class SimAnneal(object):
             self.cur_solution, self.cur_fitness = self.initial_solution()
             self.anneal()
 
-    def visualize_routes(self):
+    def config(self):
+        return (self.T_save, self.alpha, self.stopping_iter, self.stopping_temperature)
+
+    def visualize_routes(self, file):
         """
         Visualize the TSP route with matplotlib.
         """
-        plotTSP([self.best_solution], self.coords)
+        plotTSP([self.best_solution], self.coords, config=self.config(), file=file)
 
-    def plot_learning(self):
+    def plot_learning(self, file):
         """
         Plot the fitness through iterations.
         """
-        plt.plot([i for i in range(len(self.fitness_list))], self.fitness_list)
+        xpoints = [i for i in range(len(self.fitness_list))]
+        ypoints = self.fitness_list
+        plt.clf()
+        plt.plot(xpoints, ypoints)
         plt.ylabel("Fitness")
         plt.xlabel("Iteration")
-        plt.show()
+        plt.savefig(f"captures/sa/learning-{file}-{str(self.config())}.png")

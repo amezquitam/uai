@@ -21,18 +21,17 @@ def generate_random_coords(num_nodes):
     return [[random.uniform(-1000, 1000), random.uniform(-1000, 1000)] for i in range(num_nodes)]
 
 
-def apply(coords, out_file):
+def apply(coords, out_file, file, config):
     
     end_times = []
     best_solutions = []
     nIters = []
-    nejecuciones = 20
+    nejecuciones = 40
     
     for i in range(nejecuciones):
         print('Ejecución No. ', i)
         start_time = timeit.default_timer() 
-        sa = SimAnneal(coords, T = 20, stopping_iter=6000, alpha=0.9992) #0.9992
-        sa = SimAnneal(coords, T = 40, stopping_iter=10000, alpha=0.9992) #0.9992
+        sa = SimAnneal(coords, *config)
         print(sa.T)
         best_solution, nIter = sa.anneal()
         stop_time = timeit.default_timer()
@@ -53,7 +52,6 @@ def apply(coords, out_file):
     df['Time'] = end_times
     df['Iteracion'] = nIters
     print(df.head())
-    df.to_excel(out_file)
-        
-    sa.visualize_routes()
-    sa.plot_learning()
+    df.to_excel(out_file + str(config) + '.xlsx')
+    sa.visualize_routes(file)
+    sa.plot_learning(file)

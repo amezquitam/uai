@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-def plotTSP(paths, points, num_iters=1):
+def plotTSP(paths, points, num_iters=1, config=None, file=None):
 
     """
     path: List of lists with the different orders in which the nodes are visited
@@ -16,7 +16,8 @@ def plotTSP(paths, points, num_iters=1):
     for i in paths[0]:
         x.append(points[i][0])
         y.append(points[i][1])
-
+    
+    plt.clf()
     plt.plot(x, y, 'co')
 
     # Set a scale for the arrow heads (there should be a reasonable default for this, WTF?)
@@ -52,4 +53,5 @@ def plotTSP(paths, points, num_iters=1):
     #Set axis too slitghtly larger than the set of x and y
     plt.xlim(min(x)*1.1, max(x)*1.1)
     plt.ylim(min(y)*1.1, max(y)*1.1)
-    plt.show()
+    plt.savefig(f"captures/sa/path-{file}-{str(config)}.png")
+
